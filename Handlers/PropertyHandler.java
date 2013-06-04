@@ -5,16 +5,23 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.Properties;
 
+import net.minecraft.client.Minecraft;
+
 public class PropertyHandler {
 	
 	//Instance of Properties()
 	public static Properties props = new Properties();
+	public static PropertyHandler instance = new PropertyHandler();
 	
 	//File Locations (String)
-	protected static String Crafting = "config/Brewing_a_Beer_Crafting_Settings.cfg";
-	protected static String CraftingServer = "Brewing_a_Beer_Crafting_Settings_Server.cfg";
-	protected static String Update = "config/Brewing_a_Beer_Update.cfg";
-	protected static String UpdateServer = "Brewing_a_Beer_Update_Server.cfg";
+	public static String Crafting = "config/Brewing_a_Beer_Crafting_Settings.cfg";
+	public static String CraftingServer = "Brewing_a_Beer_Crafting_Settings_Server.cfg";
+	public static String Update = "/config/Brewing_a_Beer_Update.cfg";
+	public static String UpdateServer = "Brewing_a_Beer_Update_Server.cfg";
+	
+	//Comments
+	public static String UpdateComment = "Brewing a Beer Update Check";
+	public static String UpdateCommentServer = "Brewing a Beer Update Check Server";
 	
 	/**
 	 * Create a File with a new Entry
@@ -48,13 +55,13 @@ public class PropertyHandler {
 	 * @param Property : Name of the Property
 	 * @param Store : Set Value of property
 	 */
-	public static void setProperty(String File, String Property, String Store) {
+	public static void setProperty(String File, String Property, String Store, String Comment) {
 		if (isProperty(File))
 		{
 			try{
-				getProperty(File, Property);
+				props.load(new FileInputStream(File));
 				props.setProperty(Property, Store);
-				//props.store(new FileOutputStream(ini), "Brewing a Beer_Crafting Settings Server");
+				props.store(new FileOutputStream(File), Comment);
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			} 
