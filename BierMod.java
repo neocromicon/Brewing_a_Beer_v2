@@ -35,8 +35,8 @@ public class BierMod {
 	//TextureHandler folder string
     public static String modID = "Brewing_a_Beer";
     
-    @SidedProxy(clientSide = "mods.Brewing_a_Beer_v2.ClientProxy", serverSide = "mods.Brewing_a_Beer_v2.CommonProxy")
-    public static CommonProxy proxy;
+    @SidedProxy(clientSide = "mods.Brewing_a_Beer_v2.ClientProxy", serverSide = "mods.Brewing_a_Beer_v2.ServerProxy")
+    public static ServerProxy proxy;
     
     @PreInit
     public void preInit(FMLPreInitializationEvent var1)
