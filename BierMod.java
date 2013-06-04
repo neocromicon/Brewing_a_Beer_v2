@@ -51,9 +51,9 @@ public class BierMod {
 				props.setProperty(props.UpdateServer, "UpdateCheck", "true", props.UpdateCommentServer);				
 			}			
 		} else if (side == Side.CLIENT) {
-			if (props.isProperty(props.Update))
+			if (props.isProperty(Minecraft.getAppDir("minecraft")+props.Update))
 			{								
-				props.setProperty(props.Update, "UpdateCheck", "true", props.UpdateComment);
+				props.setProperty(Minecraft.getAppDir("minecraft")+props.Update, "UpdateCheck", "true", props.UpdateComment);
 			}
 		} else {			
 		}
