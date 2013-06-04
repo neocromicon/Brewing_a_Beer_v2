@@ -17,13 +17,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.server.MinecraftServer;
 
-public class UpdateChecker extends Thread
+public class UpdateHandler extends Thread
 {
+	public static PropertyHandler props = new PropertyHandler();
     private ServerTickHandler modServer;
     private ClientTickHandler modClient;
     private static Minecraft mc;
 
-    UpdateChecker(ServerTickHandler var1, ClientTickHandler var2)
+    UpdateHandler(ServerTickHandler var1, ClientTickHandler var2)
     {
         this.modServer = var1;
         this.modClient = var2;
@@ -32,9 +33,8 @@ public class UpdateChecker extends Thread
     @SideOnly(Side.SERVER)
     public void attemptServer()
     {
-        String var1 = getPropertyVolumeServer("UpdateCheck");
-
-        if (var1.endsWith("true"))
+        String checkUpdate = props.getProperty(props.Update, "UpdateCheck");
+        if (checkUpdate.endsWith("true"))
         {
             this.startServer();
 
@@ -203,7 +203,7 @@ public class UpdateChecker extends Thread
     public static boolean checkServer()
     {
     	try
-    	{
+    	{   		
     		URL var1 = new URL("http://46.38.239.84/neo/updater/BeerModUpdate");
             URL var2 = new URL("http://46.38.239.84/neo/updater/BeerModUpdateInfo");
             BufferedReader var3 = new BufferedReader(new InputStreamReader(var1.openStream()));
