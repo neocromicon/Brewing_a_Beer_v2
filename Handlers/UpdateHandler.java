@@ -24,7 +24,7 @@ public class UpdateHandler extends Thread
     private ClientTickHandler modClient;
     private static Minecraft mc;
 
-    UpdateHandler(ServerTickHandler var1, ClientTickHandler var2)
+    UpdateHandler(BierModTickHandler var2)
     {
         this.modServer = var1;
         this.modClient = var2;
@@ -34,6 +34,10 @@ public class UpdateHandler extends Thread
     public void attemptServer()
     {
         String checkUpdate = props.getProperty(props.Update, "UpdateCheck");
+        if (props.isProperty("Test"));
+        {
+        	
+        }
         if (checkUpdate.endsWith("true"))
         {
             this.startServer();
