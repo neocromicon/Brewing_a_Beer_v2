@@ -1,7 +1,7 @@
 package mods.Brewing_a_Beer_v2;
 
-import net.minecraft.client.Minecraft;
 import mods.Brewing_a_Beer_v2.Handlers.TickHandler;
+import net.minecraft.client.Minecraft;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 

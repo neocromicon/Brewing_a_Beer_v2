@@ -1,15 +1,9 @@
 package mods.Brewing_a_Beer_v2;
 
-import java.util.EnumSet;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.server.MinecraftServer;
-
 import mods.Brewing_a_Beer_v2.Handlers.PacketHandler;
 import mods.Brewing_a_Beer_v2.Handlers.PropertyHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.TickType;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.Mod.PreInit;
