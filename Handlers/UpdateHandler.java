@@ -15,6 +15,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import mods.Brewing_a_Beer_v2.BierMod;
+import mods.Brewing_a_Beer_v2.ClientProxy;
+import mods.Brewing_a_Beer_v2.ServerProxy;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.server.MinecraftServer;
@@ -25,6 +27,8 @@ public class UpdateHandler extends Thread
     private TickHandler modServer;
     private TickHandler modClient;
     private static Minecraft mc;
+    public static ServerProxy sProxy;
+    public static ClientProxy cProxy;
 
     UpdateHandler(TickHandler Typ)
     {
@@ -50,12 +54,12 @@ public class UpdateHandler extends Thread
     @SideOnly(Side.SERVER)
     public void startServer()
     {   	
-    	if (props.isProperty(props.UpdateServer))
+    	if (props.isProperty(sProxy.UpdateServer))
     	{
-    		String check = props.getProperty(props.UpdateServer, "UpdateCheck");
+    		String check = props.getProperty(sProxy.UpdateServer, "UpdateCheck");
     		if (check.endsWith("true"))
     		{
-    			props.setProperty(props.UpdateServer, "UpdateCheck", "false", props.UpdateCommentServer);
+    			props.setProperty(sProxy.UpdateServer, "UpdateCheck", "false", sProxy.UpdateCommentServer);
     			if(checkUpdateServer() == false)
     	    	{
     	    		FMLLog.log(BierMod.modID, Level.INFO, "Update Server is Offline!");
@@ -88,8 +92,8 @@ public class UpdateHandler extends Thread
     	}
     	else
     	{ 
-    		props.createNewProperty(props.UpdateServer, "UpdateCheck", "true", props.UpdateCommentServer);
-    		FMLLog.log(BierMod.modID, Level.INFO, "Generating File " + props.UpdateServer + " successful");
+    		props.createNewProperty(sProxy.UpdateServer, "UpdateCheck", "true", sProxy.UpdateCommentServer);
+    		FMLLog.log(BierMod.modID, Level.INFO, "Generating File " + sProxy.UpdateServer + " successful");
     	}
     	
     }
@@ -100,13 +104,13 @@ public class UpdateHandler extends Thread
     @SideOnly(Side.CLIENT)
     public void startClient()
     {
-    	if (props.isProperty(Minecraft.getAppDir("minecraft")+props.Update))
+    	if (props.isProperty(cProxy.Update))
     	{
-    		String check = props.getProperty(Minecraft.getAppDir("minecraft")+props.Update, "UpdateCheck");
+    		String check = props.getProperty(cProxy.Update, "UpdateCheck");
     		if (check.endsWith("true"))
     		{
     			EntityClientPlayerMP var8 = FMLClientHandler.instance().getClient().thePlayer;
-    			props.setProperty(Minecraft.getAppDir("minecraft")+props.Update, "UpdateCheck", "false", props.UpdateComment);
+    			props.setProperty(cProxy.Update, "UpdateCheck", "false", cProxy.UpdateComment);
     	    	if(checkUpdateServer() == false)
     	    	{
     	    		var8.addChatMessage("\u00a72[Brew a Beer]\u00a7r Update Server is Offline!");
@@ -147,8 +151,8 @@ public class UpdateHandler extends Thread
     	}
     	else
     	{
-    		props.createNewProperty(Minecraft.getAppDir("minecraft")+props.Update, "UpdateCheck", "true", props.UpdateComment);
-    		FMLLog.log(BierMod.modID, Level.INFO, "Generating File " + props.Update + " successful");
+    		props.createNewProperty(cProxy.Update, "UpdateCheck", "true", cProxy.UpdateComment);
+    		FMLLog.log(BierMod.modID, Level.INFO, "Generating File " + cProxy.Update + " successful");
     	}    	    	    	
     }
     

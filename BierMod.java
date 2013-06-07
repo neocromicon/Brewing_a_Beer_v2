@@ -3,6 +3,7 @@ package mods.Brewing_a_Beer_v2;
 import java.util.EnumSet;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.server.MinecraftServer;
 
 import mods.Brewing_a_Beer_v2.Handlers.PacketHandler;
 import mods.Brewing_a_Beer_v2.Handlers.PropertyHandler;
@@ -36,28 +37,27 @@ public class BierMod {
     public static String modID = "Brewing_a_Beer";
     
     @SidedProxy(clientSide = "mods.Brewing_a_Beer_v2.ClientProxy", serverSide = "mods.Brewing_a_Beer_v2.ServerProxy")
-    public static ServerProxy proxy;
+    public static ServerProxy sproxy;
+    public static ClientProxy cproxy;
     
     @PreInit
     public void preInit(FMLPreInitializationEvent var1)
     {    
-    	/**
-    	 * Check is property file exists
-    	 */
+    	//Check is property file exists
     	Side side = FMLCommonHandler.instance().getEffectiveSide();
 		if (side == Side.SERVER) {
-			if (props.isProperty(props.UpdateServer))
+			if (props.isProperty(sproxy.UpdateServer))
 			{
-				props.setProperty(props.UpdateServer, "UpdateCheck", "true", props.UpdateCommentServer);				
+				props.setProperty(sproxy.UpdateServer, "UpdateCheck", "true", sproxy.UpdateCommentServer);				
 			}			
 		} else if (side == Side.CLIENT) {
-			if (props.isProperty(Minecraft.getAppDir("minecraft")+props.Update))
-			{								
-				props.setProperty(Minecraft.getAppDir("minecraft")+props.Update, "UpdateCheck", "true", props.UpdateComment);
+			if (props.isProperty(cproxy.Update))
+			{		
+				props.setProperty(cproxy.Update, "UpdateCheck", "true", cproxy.UpdateComment);
 			}
 		} else {			
 		}
-    	proxy.renderInformation();
+		sproxy.renderInformation();
     }
     
     @Init

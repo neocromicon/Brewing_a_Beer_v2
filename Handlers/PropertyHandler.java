@@ -5,6 +5,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.Properties;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 import net.minecraft.client.Minecraft;
 
 public class PropertyHandler {
@@ -12,16 +15,6 @@ public class PropertyHandler {
 	//Instance of Properties()
 	public static Properties props = new Properties();
 	public static PropertyHandler instance = new PropertyHandler();
-	
-	//File Locations (String)
-	public static String Crafting = "config/Brewing_a_Beer_Crafting_Settings.cfg";
-	public static String CraftingServer = "Brewing_a_Beer_Crafting_Settings_Server.cfg";
-	public static String Update = "/config/Brewing_a_Beer_Update.cfg";
-	public static String UpdateServer = "Brewing_a_Beer_Update_Server.cfg";
-	
-	//Comments
-	public static String UpdateComment = "Brewing a Beer Update Check";
-	public static String UpdateCommentServer = "Brewing a Beer Update Check Server";
 	
 	/**
 	 * Create a File with a new Entry
