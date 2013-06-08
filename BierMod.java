@@ -87,7 +87,7 @@ public class BierMod {
     
 	private void intBlockAndItems() {
 		
-		//Gläser
+		//Glaeser
 		LeererBierKrug = (new ItemHandler(LeererBierKrugID, "BierGlass")).setCreativeTab(tabBeerCreative).setUnlocalizedName("LeeresBierGlas");
 		
 		//Bier Sorten

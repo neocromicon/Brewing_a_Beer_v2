@@ -53,8 +53,8 @@ public class PacketHandler implements IPacketHandler
         {
             var4.removePotionEffect(Potion.confusion.id);
             var4.removePotionEffect(Potion.hunger.id);
-            var4.removePotionEffect(BierMod.DrunkEffekt.id);
-            var4.addPotionEffect(new PotionEffect(BierMod.DrunkEffekt.id, var7, 0));
+            /*var4.removePotionEffect(BierMod.DrunkEffekt.id);
+            var4.addPotionEffect(new PotionEffect(BierMod.DrunkEffekt.id, var7, 0));*/
             var4.addPotionEffect(new PotionEffect(Potion.digSpeed.id, var7, 0));
             var4.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, var7, 0));
             var4.addPotionEffect(new PotionEffect(Potion.damageBoost.id, var7, 0));
@@ -68,11 +68,11 @@ public class PacketHandler implements IPacketHandler
 
         if (var6 == 3)
         {
-            DrunkEffect.setDrunkLevel(0);
-            var4.attackEntityFrom(DamageSourceBeer.causeItemDamage(var4), 1000);
+        	/*DrunkEffect.setDrunkLevel(0);
+            var4.attackEntityFrom(DamageSourceBeer.causeItemDamage(var4), 1000);*/
             var4.removePotionEffect(Potion.confusion.id);
             var4.removePotionEffect(Potion.hunger.id);
-            var4.removePotionEffect(BierMod.DrunkEffekt.id);
+            //var4.removePotionEffect(BierMod.DrunkEffekt.id);
         }
     }
 }
