@@ -8,7 +8,7 @@ import java.util.Properties;
 public class PropertyHandler {
 	
 	//Instance of Properties()
-	public static Properties props = new Properties();
+	protected static Properties props = new Properties();
 	public static PropertyHandler instance = new PropertyHandler();
 	
 	/**
