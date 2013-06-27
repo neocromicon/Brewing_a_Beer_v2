@@ -1,11 +1,14 @@
 package mods.Brewing_a_Beer_v2;
 
+import mods.Brewing_a_Beer_v2.Bier.PilsBier;
+import mods.Brewing_a_Beer_v2.Handlers.CreativeHandler;
+import mods.Brewing_a_Beer_v2.Handlers.DrunkHandler;
+import mods.Brewing_a_Beer_v2.Handlers.DrunkNetworkHandler;
+import mods.Brewing_a_Beer_v2.Handlers.ItemHandler;
+import mods.Brewing_a_Beer_v2.Handlers.PropertyHandler;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-import net.minecraft.potion.Potion;
 import net.minecraftforge.common.Configuration;
-import mods.Brewing_a_Beer_v2.Handlers.*;
-import mods.Brewing_a_Beer_v2.Bier.*;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
@@ -19,7 +22,7 @@ import cpw.mods.fml.relauncher.Side;
 
 @Mod(modid = "Brewing_a_Beer", name = "Brewing a Beer", version = "2.0")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false, 
-channels = {"BeerModChannel"}, packetHandler = DrunkHandler.class)
+channels = {"BeerModChannel"}, packetHandler = DrunkNetworkHandler.class)
 
 public class BierMod {
 
@@ -29,7 +32,7 @@ public class BierMod {
 	//Get PropertyHandler instance
 	public static PropertyHandler props = PropertyHandler.instance;
 	//UpdateHandler version check string
-	public static String modVersion = "2.0";
+	public static String modVersion = "2.1";
 	//TextureHandler folder string
     public static String modID = "Brewing_a_Beer_v2";
     

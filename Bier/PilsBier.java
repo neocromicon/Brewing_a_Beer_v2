@@ -1,13 +1,8 @@
 package mods.Brewing_a_Beer_v2.Bier;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.network.PacketDispatcher;
-import cpw.mods.fml.common.network.Player;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import mods.Brewing_a_Beer_v2.BierMod;
 import mods.Brewing_a_Beer_v2.Handlers.DrunkHandler;
-import mods.Brewing_a_Beer_v2.Handlers.PropertyHandler;
+import mods.Brewing_a_Beer_v2.Handlers.DrunkNetworkHandler;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,6 +12,11 @@ import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.network.PacketDispatcher;
+import cpw.mods.fml.common.network.Player;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class PilsBier extends ItemFood
 {
@@ -30,6 +30,7 @@ public class PilsBier extends ItemFood
     private int potionDuration;
     private int potionAmplifier;
     private float potionEffectProbability;
+    public static DrunkNetworkHandler drunkNetwork = DrunkNetworkHandler.instance;
     public static DrunkHandler drunk = DrunkHandler.instance;
 
     public PilsBier(int var1, int var2, int var3, float var4, boolean var5, String var6)
@@ -61,7 +62,7 @@ public class PilsBier extends ItemFood
         	if (drunk.getDrunkLevel() == 200)
         	{
         		EntityPlayerMP var5 = (EntityPlayerMP)var3;
-                PacketDispatcher.sendPacketToPlayer(DrunkHandler.getDrunk(1, 0, 350, 0), (Player)var5);
+                PacketDispatcher.sendPacketToPlayer(drunkNetwork.getDrunk(1, 0, 350, 0), (Player)var5);
         	}        
         }
         else if (var4 == Side.CLIENT)
@@ -69,7 +70,7 @@ public class PilsBier extends ItemFood
         	if (drunk.getDrunkLevel() == 200)
         	{
         		EntityClientPlayerMP var6 = (EntityClientPlayerMP)var3;
-                PacketDispatcher.sendPacketToServer(DrunkHandler.getDrunk(1, 0, 350, 0));	
+                PacketDispatcher.sendPacketToServer(drunkNetwork.getDrunk(1, 0, 350, 0));	
         	}          
         }
         else

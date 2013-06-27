@@ -18,16 +18,14 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class UpdateHandler extends Thread
 {
 	public static PropertyHandler props = PropertyHandler.instance;
-    private TickHandler modServer;
-    private TickHandler modClient;
+    private TickHandler tickHandler;
     private static Minecraft mc;
     public static ServerProxy sProxy;
     public static ClientProxy cProxy;
 
     UpdateHandler(TickHandler Typ)
     {
-        this.modServer = Typ;
-        this.modClient = Typ;
+        this.tickHandler = Typ;
     }
 
     /**
