@@ -2,6 +2,7 @@ package mods.Brewing_a_Beer_v2;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.potion.Potion;
 import net.minecraftforge.common.Configuration;
 import mods.Brewing_a_Beer_v2.Handlers.*;
 import mods.Brewing_a_Beer_v2.Bier.*;
@@ -18,7 +19,7 @@ import cpw.mods.fml.relauncher.Side;
 
 @Mod(modid = "Brewing_a_Beer", name = "Brewing a Beer", version = "2.0")
 @NetworkMod(clientSideRequired = true, serverSideRequired = false, 
-channels = {"BeerModChannel"}, packetHandler = PacketHandler.class)
+channels = {"BeerModChannel"}, packetHandler = DrunkHandler.class)
 
 public class BierMod {
 
@@ -40,7 +41,7 @@ public class BierMod {
     //Config Id's
     public static int LeererBierKrugID,PilsBierID;
     
-    public static Item LeererBierKrug,PilsBier;
+    public static Item LeererBierKrug,PilsBier;   
     
     @PreInit
     public void preInit(FMLPreInitializationEvent fml)
@@ -96,6 +97,8 @@ public class BierMod {
 	}
 	
 	private void registerHandlers() {
-
+	    
+		//Drunk Effect
+		DrunkHandler.DrunkEffekt = (new DrunkHandler(30, true, 12196378, "Drunk")).setIconIndex(0, 0);
 	}
 }

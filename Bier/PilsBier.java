@@ -6,7 +6,8 @@ import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.Brewing_a_Beer_v2.BierMod;
-import mods.Brewing_a_Beer_v2.Handlers.PacketHandler;
+import mods.Brewing_a_Beer_v2.Handlers.DrunkHandler;
+import mods.Brewing_a_Beer_v2.Handlers.PropertyHandler;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,6 +30,7 @@ public class PilsBier extends ItemFood
     private int potionDuration;
     private int potionAmplifier;
     private float potionEffectProbability;
+    public static DrunkHandler drunk = DrunkHandler.instance;
 
     public PilsBier(int var1, int var2, int var3, float var4, boolean var5, String var6)
     {
@@ -56,13 +58,19 @@ public class PilsBier extends ItemFood
 
         if (var4 == Side.SERVER)
         {
-            EntityPlayerMP var5 = (EntityPlayerMP)var3;
-            PacketDispatcher.sendPacketToPlayer(PacketHandler.sendDrunk(1, 0, 350, 0), (Player)var5);
+        	if (drunk.getDrunkLevel() == 200)
+        	{
+        		EntityPlayerMP var5 = (EntityPlayerMP)var3;
+                PacketDispatcher.sendPacketToPlayer(DrunkHandler.getDrunk(1, 0, 350, 0), (Player)var5);
+        	}        
         }
         else if (var4 == Side.CLIENT)
         {
-            EntityClientPlayerMP var6 = (EntityClientPlayerMP)var3;
-            PacketDispatcher.sendPacketToServer(PacketHandler.sendDrunk(1, 350, 500, 0));
+        	if (drunk.getDrunkLevel() == 200)
+        	{
+        		EntityClientPlayerMP var6 = (EntityClientPlayerMP)var3;
+                PacketDispatcher.sendPacketToServer(DrunkHandler.getDrunk(1, 0, 350, 0));	
+        	}          
         }
         else
         {

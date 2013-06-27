@@ -29,6 +29,6 @@ public final class CreativeHandler extends CreativeTabs
      */
     public String getTranslatedTabLabel()
     {
-        return "Brewing a Beer";
+        return "Brewing a Beer v2";
     }
 }

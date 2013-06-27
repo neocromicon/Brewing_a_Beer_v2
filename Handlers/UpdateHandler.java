@@ -30,28 +30,16 @@ public class UpdateHandler extends Thread
         this.modClient = Typ;
     }
 
-    @SideOnly(Side.SERVER)
-    public void attemptServer()
-    {    	    
-    	this.startServer();   	
-    }
-
-    @SideOnly(Side.CLIENT)
-    public void attemptClient()
-    {
-    	this.startClient();
-    }
-
     /**
      * Start Update Checker for the SERVER Side
      */
     @SideOnly(Side.SERVER)
-    public void startServer()
+    public void CheckUpdateServer()
     {   	
     	if (props.isProperty(sProxy.UpdateServer))
     	{
-    		String check = props.getProperty(sProxy.UpdateServer, "UpdateCheck");
-    		if (check.endsWith("true"))
+    		String checkProp = props.getProperty(sProxy.UpdateServer, "UpdateCheck");
+    		if (checkProp.endsWith("true"))
     		{
     			props.setProperty(sProxy.UpdateServer, "UpdateCheck", "false", sProxy.UpdateCommentServer);
     			if(checkUpdateServer() == false)
@@ -60,15 +48,15 @@ public class UpdateHandler extends Thread
     	    	}
     	    	else
     	    	{ try {
-    	    			URL url = new URL("http://46.38.239.84/neo/updater/BeerModUpdate");
+    	    			URL urlVersion = new URL("http://46.38.239.84/neo/updater/BeerModUpdate");
     	    			URL urlInfo = new URL("http://46.38.239.84/neo/updater/BeerModUpdateInfo");
-    	    			BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
-    	    			BufferedReader brInfo = new BufferedReader(new InputStreamReader(urlInfo.openStream()));
+    	    			BufferedReader readerVersion = new BufferedReader(new InputStreamReader(urlVersion.openStream()));
+    	    			BufferedReader readerInfo = new BufferedReader(new InputStreamReader(urlInfo.openStream()));
     	    			
     	    			String HoleDaten;
-    	    			String ModInfo = brInfo.readLine();
+    	    			String ModInfo = readerInfo.readLine();
     	    			String ModVersion = BierMod.modVersion;
-    	    		    while ((HoleDaten = br.readLine()) != null) {
+    	    		    while ((HoleDaten = readerVersion.readLine()) != null) {
     	    				if (HoleDaten.endsWith(ModVersion)) {
     	    					FMLLog.log(BierMod.modID, Level.INFO, "Your version is UpToDate: v" + HoleDaten);
     	    				} else {
@@ -77,8 +65,8 @@ public class UpdateHandler extends Thread
     	                    	FMLLog.log(BierMod.modID, Level.INFO, "Your version is: v" + ModVersion);
     	    				}
     	    			}
-    	    			br.close();
-    	    			brInfo.close();    	    			
+    	    		    readerVersion.close();
+    	    		    readerInfo.close();    	    			
     	    		} catch (Exception e) {
     	    		}   		
     	    	}     
@@ -96,49 +84,49 @@ public class UpdateHandler extends Thread
      * Start Update Checker for the CLIENT Side
      */
     @SideOnly(Side.CLIENT)
-    public void startClient()
+    public void CheckUpdateClient()
     {
     	if (props.isProperty(cProxy.Update))
     	{
-    		String check = props.getProperty(cProxy.Update, "UpdateCheck");
-    		if (check.endsWith("true"))
+    		String checkProp = props.getProperty(cProxy.Update, "UpdateCheck");
+    		if (checkProp.endsWith("true"))
     		{
-    			EntityClientPlayerMP var8 = FMLClientHandler.instance().getClient().thePlayer;
+    			EntityClientPlayerMP player = FMLClientHandler.instance().getClient().thePlayer;
     			props.setProperty(cProxy.Update, "UpdateCheck", "false", cProxy.UpdateComment);
     	    	if(checkUpdateServer() == false)
     	    	{
-    	    		var8.addChatMessage("\u00a72[Brew a Beer]\u00a7r Update Server is Offline!");
+    	    		player.addChatMessage("\u00a72[Brew a Beer]\u00a7r Update Server is Offline!");
     	    	}
     	    	else
     	    	{ try {
-    	            URL var1 = new URL("http://46.38.239.84/neo/updater/BeerModUpdate");
-    	            URL var2 = new URL("http://46.38.239.84/neo/updater/BeerModUpdateInfo");
-    	            BufferedReader var3 = new BufferedReader(new InputStreamReader(var1.openStream()));
-    	            BufferedReader var4 = new BufferedReader(new InputStreamReader(var2.openStream()));
-    	            String var6 = var4.readLine();
-    	            String var7 = BierMod.modVersion;
+    	            URL urlVersion = new URL("http://46.38.239.84/neo/updater/BeerModUpdate");
+    	            URL urlInfo = new URL("http://46.38.239.84/neo/updater/BeerModUpdateInfo");
+    	            BufferedReader readerVersion = new BufferedReader(new InputStreamReader(urlVersion.openStream()));
+    	            BufferedReader readerInfo = new BufferedReader(new InputStreamReader(urlInfo.openStream()));
+    	            String updateInfo = readerInfo.readLine();
+    	            String clientVersion = BierMod.modVersion;
     	            
-    	            String var5;
+    	            String updateVersion;
 
-    	            while ((var5 = var3.readLine()) != null)
+    	            while ((updateVersion = readerVersion.readLine()) != null)
     	            {
-    	                if (var5.endsWith(var7))
+    	                if (updateVersion.endsWith(clientVersion))
     	                {
-    	                    FMLLog.info("[Brew a Beer] Your version is UpToDate: v" + var5, new Object[0]);
+    	                    FMLLog.info("[Brew a Beer] Your version is UpToDate: v" + updateVersion);
     	                }
     	                else
     	                {
-    	                    FMLLog.info("[Brew a Beer] A new version is available: v" + var5, new Object[0]);
-    	                    var8.addChatMessage("\u00a72[Brew a Beer]\u00a7r A new version is available: v" + var5);
-    	                    var8.addChatMessage("\u00a72[Brew a Beer]\u00a7r New Features of v" + var5 + ": " + var6);
-    	                    var8.addChatMessage("\u00a72[Brew a Beer]\u00a7r Your version is: v" + var7);
+    	                    FMLLog.info("[Brew a Beer] A new version is available: v" + updateVersion);
+    	                    player.addChatMessage("\u00a72[Brew a Beer]\u00a7r A new version is available: v" + updateVersion);
+    	                    player.addChatMessage("\u00a72[Brew a Beer]\u00a7r New Features of v" + updateVersion + ": " + updateInfo);
+    	                    player.addChatMessage("\u00a72[Brew a Beer]\u00a7r Your version is: v" + clientVersion);
     	                }
     	            }
-    	            var3.close();
-    	            var4.close();
+    	            readerVersion.close();
+    	            readerInfo.close();
     	        }
-    	        catch (Exception var9)
-    	        {    	            
+    	        catch (Exception ex)
+    	        {
     	        }
     	      }   			
     		}

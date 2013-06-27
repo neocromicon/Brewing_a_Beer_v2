@@ -76,7 +76,7 @@ public class TickHandler implements ITickHandler{
     public void onClientTickInGame()
     {
         updateNotifier = new UpdateHandler(this);
-        updateNotifier.attemptClient();
+        updateNotifier.CheckUpdateClient();
     }
     
     /**
@@ -86,6 +86,6 @@ public class TickHandler implements ITickHandler{
     public void onServerRenderTick()
     {
 		updateNotifier = new UpdateHandler(this);
-	    updateNotifier.attemptServer();	
+	    updateNotifier.CheckUpdateServer();	
     }
 }
