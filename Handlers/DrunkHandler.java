@@ -1,11 +1,14 @@
 package mods.Brewing_a_Beer_v2.Handlers;
 
 import mods.Brewing_a_Beer_v2.BierMod;
-import net.minecraft.client.renderer.RenderEngine;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.ResourceLocation;
 import net.minecraft.potion.Potion;
 import net.minecraft.src.ModLoader;
 
 public class DrunkHandler extends Potion{
+	
+	private Minecraft mc;
 	
 	public static Potion DrunkEffekt;		
     private static int DrunkLevel = 0;
@@ -41,9 +44,9 @@ public class DrunkHandler extends Potion{
      */
     public int getStatusIconIndex()
     {
-        RenderEngine var1 = ModLoader.getMinecraftInstance().renderEngine;
-        var1.bindTexture("/mods/" + BierMod.modID + "/textures/items/DrunkSymbol.png");
-        return super.getStatusIconIndex();
+    	ResourceLocation bierIcon = new ResourceLocation("/mods/" + BierMod.modID + "/textures/items/DrunkSymbol.png");
+    	mc.renderEngine.func_110577_a(bierIcon);
+    	return super.getStatusIconIndex();
     }   
     /**
      * Set the potion name.

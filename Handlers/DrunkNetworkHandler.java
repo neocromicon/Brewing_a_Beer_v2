@@ -4,14 +4,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import mods.Brewing_a_Beer_v2.BierMod;
-import net.minecraft.client.renderer.RenderEngine;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.src.ModLoader;
 
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteStreams;

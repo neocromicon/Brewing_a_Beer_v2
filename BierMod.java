@@ -6,6 +6,7 @@ import mods.Brewing_a_Beer_v2.Handlers.DrunkHandler;
 import mods.Brewing_a_Beer_v2.Handlers.DrunkNetworkHandler;
 import mods.Brewing_a_Beer_v2.Handlers.ItemHandler;
 import mods.Brewing_a_Beer_v2.Handlers.PropertyHandler;
+import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.Configuration;
@@ -31,8 +32,10 @@ public class BierMod {
 	public static BierMod instance = new BierMod();	
 	//Get PropertyHandler instance
 	public static PropertyHandler props = PropertyHandler.instance;
+	//get MC
+	private Minecraft mc = Minecraft.getMinecraft();
 	//UpdateHandler version check string
-	public static String modVersion = "2.1";
+	public static String modVersion = "2.0";
 	//TextureHandler folder string
     public static String modID = "Brewing_a_Beer_v2";
     
@@ -49,7 +52,7 @@ public class BierMod {
     @PreInit
     public void preInit(FMLPreInitializationEvent fml)
     {    
-    	//Check is property file exists
+    	//Check is property file exists#
     	Side side = FMLCommonHandler.instance().getEffectiveSide();
 		if (side == Side.SERVER) {
 			if (props.isProperty(sproxy.UpdateServer))
@@ -57,9 +60,9 @@ public class BierMod {
 				props.setProperty(sproxy.UpdateServer, "UpdateCheck", "true", sproxy.UpdateCommentServer);				
 			}			
 		} else if (side == Side.CLIENT) {
-			if (props.isProperty(cproxy.Update))
+			if (props.isProperty(mc.mcDataDir+cproxy.Update))
 			{		
-				props.setProperty(cproxy.Update, "UpdateCheck", "true", cproxy.UpdateComment);
+				props.setProperty(mc.mcDataDir+cproxy.Update, "UpdateCheck", "true", cproxy.UpdateComment);
 			}
 		} else {			
 		}

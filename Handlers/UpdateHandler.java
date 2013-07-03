@@ -2,7 +2,9 @@ package mods.Brewing_a_Beer_v2.Handlers;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.net.InetAddress;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.logging.Level;
 
 import mods.Brewing_a_Beer_v2.BierMod;
@@ -19,7 +21,6 @@ public class UpdateHandler extends Thread
 {
 	public static PropertyHandler props = PropertyHandler.instance;
     private TickHandler tickHandler;
-    private static Minecraft mc;
     public static ServerProxy sProxy;
     public static ClientProxy cProxy;
 
@@ -84,13 +85,14 @@ public class UpdateHandler extends Thread
     @SideOnly(Side.CLIENT)
     public void CheckUpdateClient()
     {
-    	if (props.isProperty(cProxy.Update))
+    	Minecraft mc = Minecraft.getMinecraft();
+    	if (props.isProperty(mc.mcDataDir+cProxy.Update))
     	{
-    		String checkProp = props.getProperty(cProxy.Update, "UpdateCheck");
+    		String checkProp = props.getProperty(mc.mcDataDir+cProxy.Update, "UpdateCheck");
     		if (checkProp.endsWith("true"))
     		{
     			EntityClientPlayerMP player = FMLClientHandler.instance().getClient().thePlayer;
-    			props.setProperty(cProxy.Update, "UpdateCheck", "false", cProxy.UpdateComment);
+    			props.setProperty(mc.mcDataDir+cProxy.Update, "UpdateCheck", "false", cProxy.UpdateComment);
     	    	if(checkUpdateServer() == false)
     	    	{
     	    		player.addChatMessage("\u00a72[Brew a Beer]\u00a7r Update Server is Offline!");
@@ -131,7 +133,7 @@ public class UpdateHandler extends Thread
     	}
     	else
     	{
-    		props.createNewProperty(cProxy.Update, "UpdateCheck", "true", cProxy.UpdateComment);
+    		props.createNewProperty(mc.mcDataDir+cProxy.Update, "UpdateCheck", "true", cProxy.UpdateComment);
     		FMLLog.log(BierMod.modID, Level.INFO, "Generating File " + cProxy.Update + " successful");
     	}    	    	    	
     }
@@ -139,18 +141,14 @@ public class UpdateHandler extends Thread
     /**
      * Check's if Update Server Online
      * @return : Network status
-     */
-    public static boolean checkUpdateServer()
-    {
-    	try
-    	{   		
-    		URL var1 = new URL("http://46.38.239.84/neo/updater/BeerModUpdate");
-            URL var2 = new URL("http://46.38.239.84/neo/updater/BeerModUpdateInfo");
-            BufferedReader var3 = new BufferedReader(new InputStreamReader(var1.openStream()));
-            BufferedReader var4 = new BufferedReader(new InputStreamReader(var2.openStream()));
-            return true;
-    	}catch (Exception var9)
-    	{}
-    	return false;	
-    }
+    */    
+	public static boolean checkUpdateServer() {
+		try {
+			InetAddress address = InetAddress.getByName("46.38.239.84");
+			return true;
+		} catch (UnknownHostException e) {
+			System.err.println("Unable to lookup 46.38.239.84");
+		}
+		return false;
+	}
 }

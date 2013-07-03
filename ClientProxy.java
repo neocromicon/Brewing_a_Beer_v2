@@ -5,11 +5,11 @@ import net.minecraft.client.Minecraft;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 
-public class ClientProxy extends ServerProxy{
+public class ClientProxy extends ServerProxy{	
 	
 	//File Locations (String)
-	public static String Crafting = Minecraft.getAppDir("minecraft")+"config/Brewing_a_Beer_Crafting_Settings.cfg";	
-	public static String Update = Minecraft.getAppDir("minecraft")+"/config/Brewing_a_Beer_Update.cfg";
+	public static String Crafting = "/config/Brewing_a_Beer_Crafting_Settings.cfg";	
+	public static String Update = "/config/Brewing_a_Beer_Update.cfg";
 	
 	//Comments
 	public static String UpdateComment = "Brewing a Beer Update Check";
