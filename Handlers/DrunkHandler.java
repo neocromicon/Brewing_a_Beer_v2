@@ -2,9 +2,9 @@ package mods.Brewing_a_Beer_v2.Handlers;
 
 import mods.Brewing_a_Beer_v2.BierMod;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.ResourceLocation;
 import net.minecraft.potion.Potion;
 import net.minecraft.src.ModLoader;
+import net.minecraft.util.ResourceLocation;
 
 public class DrunkHandler extends Potion{
 	
