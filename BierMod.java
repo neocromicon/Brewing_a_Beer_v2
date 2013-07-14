@@ -1,24 +1,28 @@
-package mods.Brewing_a_Beer_v2;
+package assets.Brewing_a_Beer_v2;
 
-import mods.Brewing_a_Beer_v2.Bier.PilsBier;
-import mods.Brewing_a_Beer_v2.Handlers.CreativeHandler;
-import mods.Brewing_a_Beer_v2.Handlers.DrunkHandler;
-import mods.Brewing_a_Beer_v2.Handlers.DrunkNetworkHandler;
-import mods.Brewing_a_Beer_v2.Handlers.ItemHandler;
-import mods.Brewing_a_Beer_v2.Handlers.PropertyHandler;
+import assets.Brewing_a_Beer_v2.Bier.PilsBier;
+import assets.Brewing_a_Beer_v2.Handlers.CreativeHandler;
+import assets.Brewing_a_Beer_v2.Handlers.DrunkHandler;
+import assets.Brewing_a_Beer_v2.Handlers.DrunkNetworkHandler;
+import assets.Brewing_a_Beer_v2.Handlers.ItemHandler;
+import assets.Brewing_a_Beer_v2.Handlers.PropertyHandler;
+import assets.Brewing_a_Beer_v2.Maschines.MaltGrinder.BlockMaltGrinder;
+import assets.Brewing_a_Beer_v2.Maschines.MaltGrinder.TileEntityMaltGrinder;
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.Configuration;
+import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.Init;
+import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.Mod.PreInit;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 
 @Mod(modid = "Brewing_a_Beer", name = "Brewing a Beer", version = "2.0")
@@ -29,13 +33,17 @@ public class BierMod {
 
 	//Instance of the Mod
 	@Instance
-	public static BierMod instance = new BierMod();	
+	public static BierMod instance = new BierMod();
+	
 	//Get PropertyHandler instance
 	public static PropertyHandler props = PropertyHandler.instance;
+	
 	//get MC
 	private Minecraft mc = Minecraft.getMinecraft();
+	
 	//UpdateHandler version check string
 	public static String modVersion = "2.0";
+	
 	//TextureHandler folder string
     public static String modID = "Brewing_a_Beer_v2";
     
@@ -45,11 +53,14 @@ public class BierMod {
     public static CreativeTabs tabBeerCreative = new CreativeHandler(CreativeTabs.getNextID(), "Brewing a Beer");
     
     //Config Id's
+    public static int MaltGrinderID;
     public static int LeererBierKrugID,PilsBierID;
+    public static int ModelMaltGrinderID = RenderingRegistry.getNextAvailableRenderId();
     
+    public static Block MaltGrinder;
     public static Item LeererBierKrug,PilsBier;   
     
-    @PreInit
+    @EventHandler
     public void preInit(FMLPreInitializationEvent fml)
     {    
     	//Check is property file exists#
@@ -71,6 +82,8 @@ public class BierMod {
 		try
         {
 			config.load();
+			MaltGrinderID = config.getBlock("Malt Grinder", 512).getInt();
+			
 			LeererBierKrugID = config.getItem("Empty Beer Jug", 8000).getInt();
 			PilsBierID = config.getItem("Pilsner Beer", 8002).getInt();
         }
@@ -85,12 +98,13 @@ public class BierMod {
 		sproxy.renderInformation();
     }
     
-    @Init
+    @EventHandler
     public void init(FMLInitializationEvent var1)
     {
     	intBlockAndItems();
-    	registerHandlers();    	
-    }
+    	registerBlocks();
+    	registerHandlers();
+    } 
     
 	private void intBlockAndItems() {
 		
@@ -100,11 +114,17 @@ public class BierMod {
 		//Bier Sorten
 		PilsBier = (new PilsBier(PilsBierID, 0, 0, 0.0F, false, modID + ":WeizenBier")).setAlwaysEdible().setCreativeTab(tabBeerCreative).setUnlocalizedName("PilsBier");
 		
+		//Maschinen
+		MaltGrinder = (new BlockMaltGrinder(MaltGrinderID, TileEntityMaltGrinder.class)).setHardness(10.0F).setResistance(8.0F).setStepSound(Block.soundMetalFootstep).setUnlocalizedName("BlockGaerTank").setCreativeTab(tabBeerCreative);
+		
 	}
 	
-	private void registerHandlers() {
-	    
+	private void registerBlocks() {
+    	GameRegistry.registerBlock(MaltGrinder);
+    }
+	
+	private void registerHandlers() {	    
 		//Drunk Effect
-		DrunkHandler.DrunkEffekt = (new DrunkHandler(30, true, 12196378, "Drunk")).setIconIndex(0, 0);
+		DrunkHandler.DrunkEffekt = (new DrunkHandler(30, true, 12196378, "Drunk")).setIconIndex(0, 0);		
 	}
 }

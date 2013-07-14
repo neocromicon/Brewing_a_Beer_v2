@@ -1,7 +1,11 @@
-package mods.Brewing_a_Beer_v2;
+package assets.Brewing_a_Beer_v2;
 
-import mods.Brewing_a_Beer_v2.Handlers.TickHandler;
-import net.minecraft.client.Minecraft;
+import assets.Brewing_a_Beer_v2.Handlers.TickHandler;
+import assets.Brewing_a_Beer_v2.Maschines.MaltGrinder.ItemGaerTank;
+import assets.Brewing_a_Beer_v2.Maschines.MaltGrinder.RenderMaltGrinder;
+import assets.Brewing_a_Beer_v2.Maschines.MaltGrinder.TileEntityMaltGrinder;
+import net.minecraftforge.client.MinecraftForgeClient;
+import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 
@@ -19,6 +23,9 @@ public class ClientProxy extends ServerProxy{
 	 */
 	public void renderInformation()
     {		
-		TickRegistry.registerTickHandler(new TickHandler(), Side.CLIENT);		
+		TickRegistry.registerTickHandler(new TickHandler(), Side.CLIENT);	
+		
+		ClientRegistry.registerTileEntity(TileEntityMaltGrinder.class, "tileEntityMaltGrinder", new RenderMaltGrinder());
+		//MinecraftForgeClient.registerItemRenderer(BierMod.MaltGrinderID, new ItemGaerTank());
     }
 }

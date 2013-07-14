@@ -1,8 +1,8 @@
-package mods.Brewing_a_Beer_v2.Handlers;
+package assets.Brewing_a_Beer_v2.Handlers;
 
+import assets.Brewing_a_Beer_v2.BierMod;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import mods.Brewing_a_Beer_v2.BierMod;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.item.Item;
 

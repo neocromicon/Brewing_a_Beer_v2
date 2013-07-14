@@ -1,8 +1,8 @@
-package mods.Brewing_a_Beer_v2.Bier;
+package assets.Brewing_a_Beer_v2.Bier;
 
-import mods.Brewing_a_Beer_v2.BierMod;
-import mods.Brewing_a_Beer_v2.Handlers.DrunkHandler;
-import mods.Brewing_a_Beer_v2.Handlers.DrunkNetworkHandler;
+import assets.Brewing_a_Beer_v2.BierMod;
+import assets.Brewing_a_Beer_v2.Handlers.DrunkHandler;
+import assets.Brewing_a_Beer_v2.Handlers.DrunkNetworkHandler;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;

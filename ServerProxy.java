@@ -1,6 +1,6 @@
-package mods.Brewing_a_Beer_v2;
+package assets.Brewing_a_Beer_v2;
 
-import mods.Brewing_a_Beer_v2.Handlers.TickHandler;
+import assets.Brewing_a_Beer_v2.Handlers.TickHandler;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 

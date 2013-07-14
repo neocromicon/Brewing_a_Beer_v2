@@ -1,6 +1,6 @@
-package mods.Brewing_a_Beer_v2.Handlers;
+package assets.Brewing_a_Beer_v2.Handlers;
 
-import mods.Brewing_a_Beer_v2.BierMod;
+import assets.Brewing_a_Beer_v2.BierMod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.potion.Potion;
 import net.minecraft.src.ModLoader;
@@ -44,7 +44,7 @@ public class DrunkHandler extends Potion{
      */
     public int getStatusIconIndex()
     {
-    	ResourceLocation bierIcon = new ResourceLocation("/mods/" + BierMod.modID + "/textures/items/DrunkSymbol.png");
+    	ResourceLocation bierIcon = new ResourceLocation("/assets/" + BierMod.modID + "/textures/items/DrunkSymbol.png");
     	mc.renderEngine.func_110577_a(bierIcon);
     	return super.getStatusIconIndex();
     }   

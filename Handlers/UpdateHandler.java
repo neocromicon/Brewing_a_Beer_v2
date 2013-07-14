@@ -1,4 +1,4 @@
-package mods.Brewing_a_Beer_v2.Handlers;
+package assets.Brewing_a_Beer_v2.Handlers;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -7,9 +7,10 @@ import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 
-import mods.Brewing_a_Beer_v2.BierMod;
-import mods.Brewing_a_Beer_v2.ClientProxy;
-import mods.Brewing_a_Beer_v2.ServerProxy;
+import assets.Brewing_a_Beer_v2.BierMod;
+import assets.Brewing_a_Beer_v2.ClientProxy;
+import assets.Brewing_a_Beer_v2.ServerProxy;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import cpw.mods.fml.client.FMLClientHandler;

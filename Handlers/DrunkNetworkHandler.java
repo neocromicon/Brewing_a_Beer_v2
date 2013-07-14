@@ -1,4 +1,4 @@
-package mods.Brewing_a_Beer_v2.Handlers;
+package assets.Brewing_a_Beer_v2.Handlers;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
