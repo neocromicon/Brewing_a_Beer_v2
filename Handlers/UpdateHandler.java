@@ -20,16 +20,10 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class UpdateHandler extends Thread
 {
-	public static PropertyHandler props = PropertyHandler.instance;
-    private TickHandler tickHandler;
-    public static ServerProxy sProxy;
-    public static ClientProxy cProxy;
-
-    UpdateHandler(TickHandler Typ)
-    {
-        this.tickHandler = Typ;
-    }
-
+	private PropertyHandler props = PropertyHandler.instance;
+    private ServerProxy sProxy;
+    private ClientProxy cProxy;
+    
     /**
      * Start Update Checker for the SERVER Side
      */
@@ -68,6 +62,7 @@ public class UpdateHandler extends Thread
     	    		    readerVersion.close();
     	    		    readerInfo.close();    	    			
     	    		} catch (Exception e) {
+    	    			e.printStackTrace();
     	    		}   		
     	    	}     
     		}
@@ -126,11 +121,11 @@ public class UpdateHandler extends Thread
     	            readerVersion.close();
     	            readerInfo.close();
     	        }
-    	        catch (Exception ex)
-    	        {
+    	        catch (Exception e) {
+    	        	e.printStackTrace();
     	        }
     	      }   			
-    		}
+    	   }
     	}
     	else
     	{
@@ -149,6 +144,7 @@ public class UpdateHandler extends Thread
 			return true;
 		} catch (UnknownHostException e) {
 			System.err.println("Unable to lookup 46.38.239.84");
+			e.printStackTrace();
 		}
 		return false;
 	}

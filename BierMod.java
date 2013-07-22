@@ -1,5 +1,14 @@
 package assets.Brewing_a_Beer_v2;
 
+import java.io.IOException;
+import java.util.logging.Level;
+
+import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+import net.minecraftforge.common.Configuration;
+import assets.Brewing_a_Beer_v2.Api.BierModv2_API;
 import assets.Brewing_a_Beer_v2.Bier.PilsBier;
 import assets.Brewing_a_Beer_v2.Handlers.CreativeHandler;
 import assets.Brewing_a_Beer_v2.Handlers.DrunkHandler;
@@ -8,18 +17,15 @@ import assets.Brewing_a_Beer_v2.Handlers.ItemHandler;
 import assets.Brewing_a_Beer_v2.Handlers.PropertyHandler;
 import assets.Brewing_a_Beer_v2.Maschines.MaltGrinder.BlockMaltGrinder;
 import assets.Brewing_a_Beer_v2.Maschines.MaltGrinder.TileEntityMaltGrinder;
-import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
-import net.minecraftforge.common.Configuration;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -41,13 +47,16 @@ public class BierMod {
 	//get MC
 	private Minecraft mc = Minecraft.getMinecraft();
 	
+	//get API
+	private static BierModv2_API api = new BierModv2_API();
+	
 	//UpdateHandler version check string
 	public static String modVersion = "2.0";
 	
 	//TextureHandler folder string
     public static String modID = "Brewing_a_Beer_v2";
     
-    @SidedProxy(clientSide = "mods.Brewing_a_Beer_v2.ClientProxy", serverSide = "mods.Brewing_a_Beer_v2.ServerProxy")
+    @SidedProxy(clientSide = "assets.Brewing_a_Beer_v2.ClientProxy", serverSide = "assets.Brewing_a_Beer_v2.ServerProxy")
     public static ServerProxy sproxy;
     public static ClientProxy cproxy;
     public static CreativeTabs tabBeerCreative = new CreativeHandler(CreativeTabs.getNextID(), "Brewing a Beer");
@@ -62,7 +71,7 @@ public class BierMod {
     
     @EventHandler
     public void preInit(FMLPreInitializationEvent fml)
-    {    
+    {        	
     	//Check is property file exists#
     	Side side = FMLCommonHandler.instance().getEffectiveSide();
 		if (side == Side.SERVER) {
@@ -98,13 +107,18 @@ public class BierMod {
 		sproxy.renderInformation();
     }
     
-    @EventHandler
-    public void init(FMLInitializationEvent var1)
+	@EventHandler
+    public void init(FMLInitializationEvent event) throws IOException
     {
     	intBlockAndItems();
     	registerBlocks();
-    	registerHandlers();
-    } 
+    	registerHandlers();    	
+    }
+	
+	@EventHandler
+	public void postInit(FMLPostInitializationEvent event) {
+		loadPlugins();
+	}
     
 	private void intBlockAndItems() {
 		
@@ -126,5 +140,14 @@ public class BierMod {
 	private void registerHandlers() {	    
 		//Drunk Effect
 		DrunkHandler.DrunkEffekt = (new DrunkHandler(30, true, 12196378, "Drunk")).setIconIndex(0, 0);		
+	}
+	
+	private void loadPlugins() {
+		FMLLog.log(BierMod.modID, Level.INFO, "Scan for Plugins...");
+			if (api.getMessage() == null) {
+				FMLLog.log(BierMod.modID, Level.WARNING, "No Plugins found");
+			} else {				
+				FMLLog.log(api.getAddonName(), Level.INFO, api.getMessage());
+			}					
 	}
 }

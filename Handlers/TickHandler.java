@@ -75,7 +75,7 @@ public class TickHandler implements ITickHandler{
     @SideOnly(Side.CLIENT)
     public void onClientTickInGame()
     {
-        updateNotifier = new UpdateHandler(this);
+        updateNotifier = new UpdateHandler();
         updateNotifier.CheckUpdateClient();
     }
     
@@ -85,7 +85,7 @@ public class TickHandler implements ITickHandler{
     @SideOnly(Side.SERVER)
     public void onServerRenderTick()
     {
-		updateNotifier = new UpdateHandler(this);
+		updateNotifier = new UpdateHandler();
 	    updateNotifier.CheckUpdateServer();	
     }
 }
