@@ -1,6 +1,9 @@
 package assets.Brewing_a_Beer_v2;
 
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 
 import net.minecraft.block.Block;
@@ -8,7 +11,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.Configuration;
-import assets.Brewing_a_Beer_v2.Api.BierModv2_API;
+import assets.Brewing_a_Beer_v2.Api.AddonAPI;
 import assets.Brewing_a_Beer_v2.Bier.PilsBier;
 import assets.Brewing_a_Beer_v2.Handlers.CreativeHandler;
 import assets.Brewing_a_Beer_v2.Handlers.DrunkHandler;
@@ -35,7 +38,7 @@ import cpw.mods.fml.relauncher.Side;
 @NetworkMod(clientSideRequired = true, serverSideRequired = false, 
 channels = {"BeerModChannel"}, packetHandler = DrunkNetworkHandler.class)
 
-public class BierMod {
+public class BierMod{
 
 	//Instance of the Mod
 	@Instance
@@ -48,7 +51,7 @@ public class BierMod {
 	private Minecraft mc = Minecraft.getMinecraft();
 	
 	//get API
-	private static BierModv2_API api = new BierModv2_API();
+	private static AddonAPI api = new AddonAPI();
 	
 	//UpdateHandler version check string
 	public static String modVersion = "2.0";
@@ -72,7 +75,7 @@ public class BierMod {
     @EventHandler
     public void preInit(FMLPreInitializationEvent fml)
     {        	
-    	//Check is property file exists#
+    	//Check is property file exists
     	Side side = FMLCommonHandler.instance().getEffectiveSide();
 		if (side == Side.SERVER) {
 			if (props.isProperty(sproxy.UpdateServer))
@@ -112,13 +115,13 @@ public class BierMod {
     {
     	intBlockAndItems();
     	registerBlocks();
-    	registerHandlers();    	
+    	registerHandlers();
     }
 	
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
-		loadPlugins();
-	}
+		loadAddons();
+	  }
     
 	private void intBlockAndItems() {
 		
@@ -142,12 +145,19 @@ public class BierMod {
 		DrunkHandler.DrunkEffekt = (new DrunkHandler(30, true, 12196378, "Drunk")).setIconIndex(0, 0);		
 	}
 	
-	private void loadPlugins() {
-		FMLLog.log(BierMod.modID, Level.INFO, "Scan for Plugins...");
-			if (api.getMessage() == null) {
-				FMLLog.log(BierMod.modID, Level.WARNING, "No Plugins found");
-			} else {				
-				FMLLog.log(api.getAddonName(), Level.INFO, api.getMessage());
-			}					
+	private void loadAddons() {
+		FMLLog.log(BierMod.modID, Level.INFO, "Scan for Addons...");
+		
+		Set set = api.getAddon().entrySet(); 
+		Iterator i = set.iterator(); 
+		
+		if (set.isEmpty()) {
+			FMLLog.log(BierMod.modID, Level.WARNING, "No Addons found");
+		} else {
+			while(i.hasNext()) { 
+				Map.Entry me = (Map.Entry)i.next(); 
+				FMLLog.log(BierMod.modID, Level.INFO, "Found Addon: " + String.valueOf(me.getKey()) + " v" + String.valueOf(me.getValue()));
+			}
+		}
 	}
 }
