@@ -32,11 +32,11 @@ public class BlockBrewingTable extends Block {
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister par1IconRegister) {
 		this.blockIcon = par1IconRegister
-				.registerIcon("BetterTable:better_side");
+				.registerIcon("BrewingTable:brewing_side");
 		this.workbenchIconTop = par1IconRegister
-				.registerIcon("BetterTable:better_top");
+				.registerIcon("BrewingTable:brewing_top");
 		this.workbenchIconFront = par1IconRegister
-				.registerIcon("BetterTable:better_front");
+				.registerIcon("BrewingTable:brewing_front");
 	}
 
 	public boolean onBlockActivated(World var1, int var2, int var3, int var4,
