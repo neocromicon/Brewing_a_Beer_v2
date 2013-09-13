@@ -1,4 +1,4 @@
-package assets.Brewing_a_Beer_v2.Api;
+package assets.brewing_a_beer_v2.Api;
 
 import java.util.HashMap;
 

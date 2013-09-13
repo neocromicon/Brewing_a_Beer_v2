@@ -1,19 +1,24 @@
-package assets.Brewing_a_Beer_v2.Maschines.MaltGrinder;
+package assets.brewing_a_beer_v2.Maschines.MaltGrinder;
 
 import java.util.Random;
 
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockMaltGrinder extends BlockContainer {
 	private Class entityClass;
+	private String Image;
 
-	public BlockMaltGrinder(int par1, Class tClass) {
+	public BlockMaltGrinder(int par1, Class tClass, String image) {
 		super(par1, Material.wood);
 		entityClass = tClass;
+		this.Image = image;
 	}
 
 	public TileEntity getBlockEntity() {
@@ -22,6 +27,11 @@ public class BlockMaltGrinder extends BlockContainer {
 		} catch (Exception exception) {
 			throw new RuntimeException(exception);
 		}
+	}
+	
+	@SideOnly(Side.CLIENT)
+	public void registerIcons(IconRegister par1IconRegister) {
+		this.blockIcon = par1IconRegister.registerIcon(this.Image);			
 	}
 
 	public int idDropped(int i, Random rand, int j) {

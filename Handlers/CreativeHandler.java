@@ -1,9 +1,9 @@
-package assets.Brewing_a_Beer_v2.Handlers;
+package assets.brewing_a_beer_v2.Handlers;
 
-import assets.Brewing_a_Beer_v2.BierMod;
+import net.minecraft.creativetab.CreativeTabs;
+import assets.brewing_a_beer_v2.BierMod;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.creativetab.CreativeTabs;
 
 public final class CreativeHandler extends CreativeTabs
 {

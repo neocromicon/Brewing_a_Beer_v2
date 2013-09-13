@@ -1,4 +1,4 @@
-package assets.Brewing_a_Beer_v2.Bier;
+package assets.brewing_a_beer_v2.Bier;
 
 import java.util.List;
 
@@ -11,9 +11,9 @@ import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import assets.Brewing_a_Beer_v2.BierMod;
-import assets.Brewing_a_Beer_v2.Handlers.DrunkHandler;
-import assets.Brewing_a_Beer_v2.Handlers.DrunkNetworkHandler;
+import assets.brewing_a_beer_v2.BierMod;
+import assets.brewing_a_beer_v2.Handlers.DrunkHandler;
+import assets.brewing_a_beer_v2.Handlers.DrunkNetworkHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;

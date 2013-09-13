@@ -1,18 +1,19 @@
-package assets.Brewing_a_Beer_v2.Handlers;
+package assets.brewing_a_beer_v2.Handlers;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 
-import assets.Brewing_a_Beer_v2.BierMod;
-import assets.Brewing_a_Beer_v2.ClientProxy;
-import assets.Brewing_a_Beer_v2.ServerProxy;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.server.dedicated.DedicatedServer;
+import assets.brewing_a_beer_v2.ClientProxy;
+import assets.brewing_a_beer_v2.ServerProxy;
+import assets.brewing_a_beer_v2.Lib.InitHelper;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.relauncher.Side;
@@ -38,7 +39,7 @@ public class UpdateHandler extends Thread
     			props.setProperty(sProxy.UpdateServer, "UpdateCheck", "false", sProxy.UpdateCommentServer);
     			if(checkUpdateServer() == false)
     	    	{
-    	    		FMLLog.log(BierMod.modID, Level.INFO, "Update Server is Offline!");
+    	    		FMLLog.log(InitHelper.MODID, Level.INFO, "Update Server is Offline!");   	    		
     	    	}
     	    	else
     	    	{ try {
@@ -49,28 +50,28 @@ public class UpdateHandler extends Thread
     	    			
     	    			String HoleDaten;
     	    			String ModInfo = readerInfo.readLine();
-    	    			String ModVersion = BierMod.modVersion;
+    	    			String ModVersion = InitHelper.MODID;
     	    		    while ((HoleDaten = readerVersion.readLine()) != null) {
     	    				if (HoleDaten.endsWith(ModVersion)) {
-    	    					FMLLog.log(BierMod.modID, Level.INFO, "Your version is UpToDate: v" + HoleDaten);
+    	    					FMLLog.log(InitHelper.MODID, Level.INFO, "Your version is UpToDate: v" + HoleDaten);
     	    				} else {
-    	    					FMLLog.log(BierMod.modID, Level.INFO, "A new version is available: v" + HoleDaten);
-    	                    	FMLLog.log(BierMod.modID, Level.INFO, "New Features of v" + HoleDaten + ": " + ModInfo);
-    	                    	FMLLog.log(BierMod.modID, Level.INFO, "Your version is: v" + ModVersion);
+    	    					FMLLog.log(InitHelper.MODID, Level.INFO, "A new version is available: v" + HoleDaten);
+    	                    	FMLLog.log(InitHelper.MODID, Level.INFO, "New Features of v" + HoleDaten + ": " + ModInfo);
+    	                    	FMLLog.log(InitHelper.MODID, Level.INFO, "Your version is: v" + ModVersion);
     	    				}
     	    			}
     	    		    readerVersion.close();
     	    		    readerInfo.close();    	    			
     	    		} catch (Exception e) {
-    	    			e.printStackTrace();
-    	    		}   		
+        	        	e.printStackTrace();        	        
+					}   		
     	    	}     
     		}
     	}
     	else
     	{ 
     		props.createNewProperty(sProxy.UpdateServer, "UpdateCheck", "true", sProxy.UpdateCommentServer);
-    		FMLLog.log(BierMod.modID, Level.INFO, "Generating File " + sProxy.UpdateServer + " successful");
+    		FMLLog.log(InitHelper.MODID, Level.INFO, "Generating File " + sProxy.UpdateServer + " successful");
     	}
     	
     }
@@ -100,7 +101,7 @@ public class UpdateHandler extends Thread
     	            BufferedReader readerVersion = new BufferedReader(new InputStreamReader(urlVersion.openStream()));
     	            BufferedReader readerInfo = new BufferedReader(new InputStreamReader(urlInfo.openStream()));
     	            String updateInfo = readerInfo.readLine();
-    	            String clientVersion = BierMod.modVersion;
+    	            String clientVersion = InitHelper.MODID;
     	            
     	            String updateVersion;
 
@@ -130,7 +131,7 @@ public class UpdateHandler extends Thread
     	else
     	{
     		props.createNewProperty(mc.mcDataDir+cProxy.Update, "UpdateCheck", "true", cProxy.UpdateComment);
-    		FMLLog.log(BierMod.modID, Level.INFO, "Generating File " + cProxy.Update + " successful");
+    		FMLLog.log(InitHelper.MODID, Level.INFO, "Generating File " + cProxy.Update + " successful");
     	}    	    	    	
     }
     
@@ -138,13 +139,11 @@ public class UpdateHandler extends Thread
      * Check's if Update Server Online
      * @return : Network status
     */    
-	public static boolean checkUpdateServer() {
+    public static boolean checkUpdateServer() {
 		try {
-			InetAddress address = InetAddress.getByName("46.38.239.84");
+			InetAddress address = InetAddress.getByName("46.38.239.84/neo/mods/updater/");
 			return true;
 		} catch (UnknownHostException e) {
-			System.err.println("Unable to lookup 46.38.239.84");
-			e.printStackTrace();
 		}
 		return false;
 	}

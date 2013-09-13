@@ -1,4 +1,4 @@
-package assets.Brewing_a_Beer_v2.Handlers;
+package assets.brewing_a_beer_v2.Handlers;
 
 import java.io.File;
 import java.io.FileInputStream;
